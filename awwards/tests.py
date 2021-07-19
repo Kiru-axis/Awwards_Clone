@@ -20,3 +20,5 @@ class PostTest(TestCase):
         self.user = User.objects.create(id=1, username='Test')
         self.post = Post.objects.create(id=1, title='Post', photo='https://cutt.ly/UmBUMAX', description='desc',
                                         user=self.user, url='http://google.com')
+    def test_instance(self):
+        self.assertTrue(isinstance(self.post, Post))
