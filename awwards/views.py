@@ -140,3 +140,4 @@ def search_project(request):
     else:
         message = "You haven't searched for any image category"
     return render(request, 'awwards/results.html', {'message': message})
+# serialization

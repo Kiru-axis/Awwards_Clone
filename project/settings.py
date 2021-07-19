@@ -6,8 +6,6 @@ import django_heroku
 from decouple import config, Csv
 import dj_database_url
 
-
-
 cloudinary.config(
   cloud_name = "dbumewyui",
   api_key = "978719186177276",
@@ -56,6 +54,7 @@ INSTALLED_APPS = [
     'awwards',
     'crispy_forms',
     'rest_framework',
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -150,10 +149,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -173,9 +172,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # redirects
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL ='index'
 
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL ='login'
 
 # rest framework settings
 REST_FRAMEWORK = {
@@ -198,6 +197,3 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
-
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
