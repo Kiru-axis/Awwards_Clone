@@ -1,16 +1,18 @@
 from django.test import TestCase
-from .models import *
+from .models import Rating,Post,Profile
+from django.contrib.auth.models import User
 # Create your tests here.
 
 class RatingTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(id=1, username='charles')
-        self.post = Post.objects.create(id=1, title='test post', photo='https://ucarecdn.com/0ccf61ff-508e-46c6-b713-db51daa6626e', description='desc',
-                                        user=self.user, url='http://ur.coml')
+        self.user = User.objects.create(id=1, username='Test')
+        self.post = Post.objects.create(id=1, title='Post', photo='https://cutt.ly/UmBUMAX', description='desc',
+                                        user=self.user, url='http://google.com')
+                                        
         self.rating = Rating.objects.create(id=1, design=6, usability=7, content=9, user=self.user, post=self.post)
 
 
-class TestProfile(TestCase):
+class ProfileTest(TestCase):
     def setUp(self):
         self.user = User(id=1, username='Test', password='test')
         self.user.save()
