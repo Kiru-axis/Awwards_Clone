@@ -32,3 +32,8 @@ class PostTest(TestCase):
         self.post.delete_post()
         post = Post.search_project('test')
         self.assertTrue(len(post) < 1)
+
+    def test_search_post(self):
+        self.post.save()
+        post = Post.search_project('test')
+        self.assertTrue(len(post) > 0)
