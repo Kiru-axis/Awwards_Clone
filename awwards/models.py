@@ -14,3 +14,15 @@ class Profile(models.Model):
     location = models.CharField(max_length=60, blank=True)
     contact = models.EmailField(max_length=100, blank=True)
 
+
+class Post(models.Model):
+    title = models.CharField(max_length=155)
+    url = models.URLField(max_length=255)
+    description = models.TextField(max_length=255)
+    technologies = models.CharField(max_length=200, blank=True)
+    photo = models.ImageField(upload_to='post/', default='default.png')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.title}'
