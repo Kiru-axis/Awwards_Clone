@@ -82,5 +82,11 @@ class Rating(models.Model):
     usability_average = models.FloatField(default=0, blank=True)
     content_average = models.FloatField(default=0, blank=True)
 
-    
+    @classmethod
+    def get_ratings(cls, id):
+        ratings = Rating.objects.filter(post_id=id).all()
+        return ratings
+
+    def __str__(self):
+        return f'{self.post} Rating'
     
