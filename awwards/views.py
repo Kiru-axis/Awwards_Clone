@@ -97,6 +97,8 @@ def project(request, post):
             rate = form.save(commit=False)
             rate.user = request.user
             rate.post = post
+            print(rate.user)
+            print(rate.post)
             rate.save()
             post_ratings = Rating.objects.filter(post=post)
 

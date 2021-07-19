@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-# import datetime as dt
 from django.utils import timezone
 
 # Create your models here.
@@ -28,12 +27,12 @@ class Profile(models.Model):
     
 # post model
 class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     title = models.CharField(max_length=155)
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo = models.ImageField(upload_to='post/', default='default.png')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    photo = models.ImageField(upload_to='post/', default='default.png') #screenshot of the program
     date = models.DateTimeField(default=timezone.now)
 
     def delete_post(self):
@@ -57,35 +56,38 @@ class Post(models.Model):
 
 
 # rate choices
-RATE_CHOICES = [
-    (1,"1"),
-    (2,"2"),
-    (3,"3"),
-    (4,"4"),
-    (5,"5"),
-    (6,"6"),
-    (7,"7"),
-    (8,"8"),
-    (9,"9"),
-    (10,"10"),
-]
 
 class Rating(models.Model):
+    rating = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rater')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='ratings', null=True)
-    rating = models.PositiveSmallIntegerField(choices= RATE_CHOICES)
-    design = models.IntegerField(choices=RATE_CHOICES, default=0, blank=True)
-    usability = models.IntegerField(choices=RATE_CHOICES, blank=True)
-    content = models.IntegerField(choices=RATE_CHOICES, blank=True)
+    design = models.IntegerField(choices=rating, default=0, blank=True)
+    usability = models.IntegerField(choices=rating, blank=True)
+    content = models.IntegerField(choices=rating, blank=True)
     score = models.FloatField(default=0, blank=True)
     design_average = models.FloatField(default=0, blank=True)
     usability_average = models.FloatField(default=0, blank=True)
     content_average = models.FloatField(default=0, blank=True)
 
+
     @classmethod
     def get_ratings(cls, id):
         ratings = Rating.objects.filter(post_id=id).all()
         return ratings
+    
+    def save_rating(self):
+        self.save()
 
     def __str__(self):
         return f'{self.post} Rating'
