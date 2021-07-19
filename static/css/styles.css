@@ -1,5 +1,23 @@
+body{
+   
+}
+
 .hello{
     color:green;
+}
+
+.banner {
+    background:url(../images/galaxy.jpg),
+    radial-gradient(#444, #111),
+        url(../images/landing2.jpg) no-repeat 0px 0px;
+    background-size:cover;
+    background-position: center;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 400px;
+    background-blend-mode: difference;
 }
 #nbar{
     background-color:black;
@@ -25,9 +43,7 @@
     height: 30px;
     width: 30px;
 }
-body{
-    background-color:white;
-}
+
 #heart{
     float:right;
     border: 1px solid black;
