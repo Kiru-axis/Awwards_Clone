@@ -14,7 +14,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=60, blank=True)
     contact = models.EmailField(max_length=100, blank=True)
 
-
+# post model
 class Post(models.Model):
     title = models.CharField(max_length=155)
     url = models.URLField(max_length=255)
@@ -26,3 +26,18 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+# rate choices
+RATE_CHOICES = [
+    (1,"1"),
+    (2,"2"),
+    (3,"3"),
+    (4,"4"),
+    (5,"5"),
+    (6,"6"),
+    (7,"7"),
+    (8,"8"),
+    (9,"9"),
+    (10,"10"),
+]
