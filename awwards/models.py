@@ -41,3 +41,18 @@ RATE_CHOICES = [
     (9,"9"),
     (10,"10"),
 ]
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rater')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='ratings', null=True)
+    rating = models.PositiveSmallIntegerField(choices= RATE_CHOICES)
+    design = models.IntegerField(choices=RATE_CHOICES, default=0, blank=True)
+    usability = models.IntegerField(choices=RATE_CHOICES, blank=True)
+    content = models.IntegerField(choices=RATE_CHOICES, blank=True)
+    score = models.FloatField(default=0, blank=True)
+    design_average = models.FloatField(default=0, blank=True)
+    usability_average = models.FloatField(default=0, blank=True)
+    content_average = models.FloatField(default=0, blank=True)
+
+    
+    
