@@ -3,7 +3,7 @@ from .models import *
 # Create your tests here.
 class TestProfile(TestCase):
     def setUp(self):
-        self.user = User(id=1, username='charles', password='wer2345uyq')
+        self.user = User(id=1, username='Test', password='test')
         self.user.save()
 
     def test_instance(self):
@@ -14,3 +14,9 @@ class TestProfile(TestCase):
 
     def test_delete_user(self):
         self.user.delete()
+
+class PostTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(id=1, username='Test')
+        self.post = Post.objects.create(id=1, title='Post', photo='https://cutt.ly/UmBUMAX', description='desc',
+                                        user=self.user, url='http://google.com')
