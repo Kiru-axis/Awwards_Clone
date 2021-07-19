@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect
-from .forms import SignupForm, PostForm
+from django.shortcuts import render,redirect, get_object_or_404
+from .forms import SignupForm, PostForm, UpdateUserForm, UpdateUserProfileForm, RatingsForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Rating
 import random
+from django.contrib.auth.models import User
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -40,4 +41,39 @@ def index(request):
     except Post.DoesNotExist:
         posts = None
     return render(request, 'awwards/index.html', {'posts': posts, 'form': form, 'random_post': random_post})
+
+# user profile page
+def user_profile(request, username):
+    user_prof = get_object_or_404(User, username=username)
+    if request.user == user_prof:
+        return redirect('profile', username=request.user.username)
+    params = {
+        'user_prof': user_prof,
+    }
+    return render(request, 'awwards/userprofile.html', params)
+# 
+@login_required(login_url='login')
+def profile(request, username):
+    return render(request, 'awwards/profile.html')
+
+
+# change profile
+@login_required(login_url='login')
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and prof_form.is_valid():
+            user_form.save()
+            prof_form.save()
+            return redirect('profile', user.username)
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        prof_form = UpdateUserProfileForm(instance=request.user.profile)
+    params = {
+        'user_form': user_form,
+        'prof_form': prof_form
+    }
+    return render(request, 'awwards/edit.html', params)
 
