@@ -1,3 +1,19 @@
+import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
+from decouple import config, Csv
+import dj_database_url
+
+
+
+cloudinary.config(
+  cloud_name = "dbumewyui",
+  api_key = "978719186177276",
+  api_secret = "E-SGjB1hUgtAirj_XvSdLFWbd6Y",
+  secure = True
+)
 """
 Django settings for project project.
 
