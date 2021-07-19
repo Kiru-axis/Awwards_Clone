@@ -1,4 +1,4 @@
-# PICTURE PERFECT
+# Awwards
 ## Prerequisites
 * Computer literacy
 * Internet connectivity
