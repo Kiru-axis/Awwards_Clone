@@ -40,10 +40,7 @@
 1. **Null response**
 * The searched project does not exist in the database
 
-7. **Note**
-+ The site is fully responsive and will work on any device size
-
-8. **Visit the live site**
+7. **Visit the live site**
 * Input: Click on visit site when you go to the project posted by a user.
 * Output: You are taken to the project standalone page
 

@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_picture = models.ImageField(upload_to='images/', default='default.png')
+    profile_picture =CloudinaryField('images/', default='default.png')
     bio = models.TextField(max_length=500, default="Add Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
     location = models.CharField(max_length=60, blank=True)
@@ -32,7 +32,7 @@ class Post(models.Model):
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo = models.ImageField(upload_to='post/', default='default.png') #screenshot of the program
+    photo =CloudinaryField('post/', default='default.png') #screenshot of the program
     date = models.DateTimeField(default=timezone.now)
 
     def delete_post(self):

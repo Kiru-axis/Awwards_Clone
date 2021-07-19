@@ -29,8 +29,9 @@
                                 </div>
                                 <div class="row mx-auto D-block">
                                     <div class="by ">
-                                        by <strong><a href="">{{ random_post.user.username }}</a>
-                                    </strong> from <strong>{{ random_post.user.profile.location }}</strong>
+                                        <h3><span class="text-info">{{ random_post.user.username }}</span><br>
+                                        <span class="">{{ random_post.user.profile.bio }}</span>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div class="box-notesite js-notes">
@@ -106,7 +107,7 @@
     </div>
 
     <div class="container">
-        <h2 class="mt-4 text-center text-light">Uploaded sites</h2>
+        <h2 class="mt-4 text-center p-3 text-light">Uploaded sites</h2>
         {% if user.is_authenticated %}
         <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
@@ -135,9 +136,9 @@
         <div class="row">
             {% if posts %}
 
-            <div class="templates display">
+            <div class="d-flex flex-row flex-wrap ">
                 {% for post in posts %}
-                <div class="col-md-6 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="view overlay">
                             <img class="card-img-top img-responsive img-fluid" id="" src="{{ post.photo.url }}"
