@@ -8,12 +8,8 @@
 </head>
 
 {% block content %}
-<div class="container-fluid bg-dark">
-    <div class="container-fluid">
-        <!DOCTYPE html>
-        <html class="no-js" lang="en">
-        <body class="home" data-debug="0">
-
+<div class="container" style="margin-top:5%;">
+    <div class="container">
         <section id="content">
             <div class="content-view">
                 <div class="box-site-head js-single-element"
@@ -21,7 +17,7 @@
                     <div class="box-bg has-tablet">
                         <a href="{% url 'project' random_post.title %}">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB2wAAAK8AQMAAAAZMt0LAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAANJJREFUeNrswYEAAAAAgKD9qRepAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg9uBAAAAAAADI/7URVFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWlPTgkAAAAABD0/7UzLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAKNogABue9NggAAAABJRU5ErkJggg=="
-                                 width="1900" height="720" class="lazy"/>
+                                id="myImage" class="lazy"/>
                         </a>
                     </div>
                     <div class="box-content over mi" style="background-image:url({% static 'images/download.jpeg'%})">
@@ -101,8 +97,6 @@
                 </div>
             </div>
         </section>
-        </body>
-        </html>
     </div>
 
     <div class="container">

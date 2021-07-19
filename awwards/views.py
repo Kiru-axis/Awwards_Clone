@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Rating
 import random
 from django.http import HttpResponseRedirect
-
 from django.contrib.auth.models import User
+from .serializers import ProfileSerializer, UserSerializer, PostSerializer
+from rest_framework import viewsets
+from rest_framework.response import Response
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -141,3 +143,16 @@ def search_project(request):
         message = "You haven't searched for any image category"
     return render(request, 'awwards/results.html', {'message': message})
 # serialization
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
