@@ -22,3 +22,13 @@ class PostTest(TestCase):
                                         user=self.user, url='http://google.com')
     def test_instance(self):
         self.assertTrue(isinstance(self.post, Post))
+
+    def test_save_post(self):
+        self.post.save_post()
+        post = Post.objects.all()
+        self.assertTrue(len(post) > 0)
+
+    def test_delete_post(self):
+        self.post.delete_post()
+        post = Post.search_project('test')
+        self.assertTrue(len(post) < 1)
