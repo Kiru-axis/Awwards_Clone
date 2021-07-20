@@ -3,15 +3,20 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-from cloudinary.models import CloudinaryField
 # Create your models here.
+from cloudinary.models import CloudinaryField
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_picture =CloudinaryField('images')
-    bio = models.TextField(max_length=500, default="Add Bio", blank=True)
+    profile_picture = CloudinaryField('images', default='default.png')
+    bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
     location = models.CharField(max_length=60, blank=True)
     contact = models.EmailField(max_length=100, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -22,22 +27,22 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-    def __str__(self):
-        return f'{self.user.username} Profile'
-    
-# post model
+
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     title = models.CharField(max_length=155)
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo =CloudinaryField('post') #screenshot of the program
-    date = models.DateTimeField(default=timezone.now)
+    photo = CloudinaryField('photo')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    date = models.DateTimeField(default=timezone.now, blank=True)
+
+    def __str__(self):
+        return f'{self.title}'
 
     def delete_post(self):
         self.delete()
-    
+
     @classmethod
     def search_project(cls, title):
         return cls.objects.filter(title__icontains=title).all()
@@ -51,11 +56,6 @@ class Post(models.Model):
 
 
 
-    def __str__(self):
-        return f'{self.title}'
-
-
-# rate choices
 
 class Rating(models.Model):
     rating = (
@@ -79,16 +79,15 @@ class Rating(models.Model):
     design_average = models.FloatField(default=0, blank=True)
     usability_average = models.FloatField(default=0, blank=True)
     content_average = models.FloatField(default=0, blank=True)
+    
 
+    def save_rating(self):
+        self.save()
 
     @classmethod
     def get_ratings(cls, id):
         ratings = Rating.objects.filter(post_id=id).all()
         return ratings
-    
-    def save_rating(self):
-        self.save()
 
     def __str__(self):
         return f'{self.post} Rating'
-    
